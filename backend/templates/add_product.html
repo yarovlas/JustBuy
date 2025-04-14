@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="signup-page">
+    <div class="signup-box">
+        <h2>Add Product</h2>
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="sticky-fields">
+                <div class="input-group">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" name="product_name" id="product_name" required placeholder="Enter product name">
+                </div>
+                <div class="input-group">
+                    <label for="price">Price</label>
+                    <input type="number" name="price" id="price" required placeholder="Enter product price" step="0.01">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="product_description">Description</label>
+                <textarea name="product_description" id="product_description" placeholder="Enter product description" rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Add Product</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

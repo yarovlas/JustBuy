@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martketplace</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    {% include "header.html" %}
+    {% include "flash_message.html" %}
+    {% block content %}{% endblock %}
+</body>
+</html>

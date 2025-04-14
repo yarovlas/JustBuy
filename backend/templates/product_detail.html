@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+</head>
+
+<div class="product-detail-page">
+    <div class="product">
+        <div class="product-content">
+            <h1 class="product-name">{{ product.product_name }}</h1>
+            <p class="product-detail-price">{{ product.price }}$</p>
+            <p class="product-description"> Description: <br><br>{{ product.product_description or 'No description available' }}</p>
+        </div>
+        <div>
+            <img class="product-img" src="{{ url_for('static', filename='assets/arbuz.png') }}" alt="{{ product.product_name }}">
+            <div class="product-buttons">
+                <form method="POST" action="{{ url_for('cart/add', product_id=product.product_id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button class="btn add-to-cart-btn" type="submit">Add to cart</button>
+                </form>
+                <a href="{{ url_for('products') }}" class="btn back-btn">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

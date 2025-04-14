@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="cart-page">
+    <h1>Your Cart</h1>
+    {% if cart_items %}
+    <div class="cart-table-wrapper">
+        <div class="table-responsive">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('product_detail', product_id=item.product.product_id) }}">
+                                {{ item.product.product_name }}
+                            </a>
+                        </td>
+                        <td>${{ item.product.price }}</td>
+                        <td>{{ item.product.date_added.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('remove_from_cart', cart_item_id=item.cart_item_id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn remove-btn">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

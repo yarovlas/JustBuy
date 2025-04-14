@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+<div class="profile-main-container">
+    <!-- Left Column: Profile -->
+    <div class="profile-sidebar">
+        <div class="profile-photo"><img class="no-profile" src="../static/assets/no-profile.png" alt="profile-photo"></div>
+        <div class="profile-info">{{ user.first_name }}</div>
+        <div class="profile-info">{{ user.surname }}</div>
+        <div class="profile-info">With us since: {{ user.registration_date }}</div>
+    </div>
+
+    <!-- Right Column: Orders -->
+    <div class="orders-section">
+        <div class="orders-title">Orders</div>
+    </div>
+</div>
+{% endblock %}
