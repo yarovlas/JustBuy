@@ -1,126 +1,144 @@
-# 🚀 Project Setup & Running Guide
+# 🛒 JustBuy
 
-## 📌 Prerequisites
-Before running the project, make sure you have:
-- ✅ **Python 3.8+** installed
-- ✅ **MySQL** database access
-- ✅ **Git** installed for version control
-- ✅ **A virtual environment** for dependency management
+JustBuy is a lightweight web application built with Flask, Jinja2, and MySQL. It allows users to interact with a simple interface to manage items (e.g., add/delete) using a clean MVC structure and modern web techniques like HTMX for dynamic UI updates.
+
 ---
 
-## 📂 Project Structure
+## 🚀 Project Setup & Running Guide
+
+### 📌 Prerequisites
+
+Make sure you have the following installed before starting:
+
+* ✅ Python 3.8+
+* ✅ MySQL database
+* ✅ Git
+* ✅ (Recommended) Virtual environment for Python dependencies
+
+---
+
+### 📂 Project Structure
+
 ```
-/project_root
-│── backend/
-│   │── app.py          # Main Flask app
-│   │── models.py       # Database models
-│   │── routes.py       # API routes (home, delete items, etc.)
-│   │── config.py       # Configuration (DB connection, secrets)
-│   │── templates/      # Jinja2 templates (frontend files)
-│   │── static/         # Static assets (CSS, JS)
-│   │── requirements.txt # Backend dependencies
+project_root/
 │
-│── .env               # Environment variables
-│── README.md          # Documentation
+├── backend/
+│   ├── app.py           # Main Flask app
+│   ├── models.py        # SQLAlchemy models
+│   ├── routes.py        # API routes
+│   ├── config.py        # Configuration (DB, secrets)
+│   ├── templates/       # Jinja2 templates (UI)
+│   ├── static/          # CSS, JavaScript
+│   └── requirements.txt # Backend dependencies
+│
+├── .env                 # Environment variables
+└── README.md            # Project documentation
 ```
 
 ---
 
 ## 💻 1️⃣ Setting Up & Running the Project
+
 ### 🔹 Step 1: Clone the Repository
-```sh
-git clone <REPO_URL>
-cd project_root
+
+```bash
+git clone https://github.com/yarovlas/JustBuy.git
+cd JustBuy
 ```
 
 ### 🔹 Step 2: Backend Setup
-1. Navigate to the backend folder:
-    ```sh
-    cd backend
-    ```
-2. Create & activate a virtual environment:
-    ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
-3. Install dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-4. Set up environment variables:
-    Create a **`.env`** file inside `/backend` with your database credentials:
-    ```ini
-    SECRET_KEY=your_secret_key
-    DATABASE_URL=mysql://user:password@your_database_host/dbname
-    ```
-5. Run Flask App:
-    ```sh
-    python app.py
-    ```
-    Now visit **[http://127.0.0.1:5000/](http://127.0.0.1:5000/)** to see the UI.
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 🔹 Step 3: Configure Environment
+
+Create a `.env` file in `/backend/`:
+
+```env
+SECRET_KEY=your_secret_key
+DATABASE_URL=mysql://user:password@host/database
+```
+
+### 🔹 Step 4: Run the Flask App
+
+```bash
+python app.py
+```
+
+Visit: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
 ---
 
-## 🛠️ 2️⃣ Git Workflow (For Everyone)
-Since we are working in a **team (Frontend & Backend separately)**, we follow this Git branch structure:
+## 🛠️ 2️⃣ Git Workflow (Team)
 
-### 🔹 Git Branch Workflow
-```
-main       → (Stable production branch)
-│
-├── dev    → (Main development branch)
-│   ├── frontend → (For frontend changes - Jinja2, HTMX, CSS, JS)
-│   ├── backend  → (For backend changes - Flask, database, APIs)
-```
+We use a simple and clean Git workflow for team collaboration.
 
-### 🔹 Step 1: Pull the Latest Changes
-```sh
-git checkout dev
-git pull origin dev
+### 🔹 Branching Model
+
+```
+main       → Stable production
+dev        → Main development
+├── frontend → Frontend features (HTML, HTMX, CSS, JS)
+└── backend  → Backend logic (Flask, DB, APIs)
 ```
 
-### 🔹 Step 2: Create a New Branch for Your Changes
-For frontend changes:
-```sh
-git checkout -b frontend-feature-branch
-```
-For backend changes:
-```sh
-git checkout -b backend-feature-branch
-```
+### 🔹 Workflow Steps
 
-### 🔹 Step 3: Make Your Changes
-- **Frontend**: Edit Jinja2 templates, modify CSS & JS
-- **Backend**: Modify Flask routes, update database models, or change APIs
+1. **Update local repo:**
 
-### 🔹 Step 4: Add, Commit & Push Changes
-```sh
-git add .
-git commit -m "Updated UI for delete item button"
-git push origin frontend-feature-branch
-```
+   ```bash
+   git checkout dev
+   git pull origin dev
+   ```
 
-### 🔹 Step 5: Create a Pull Request
-- Go to **GitHub/GitLab**
-- Create a **Pull Request (PR)** from `feature-branch → dev`
-- **Tag relevant team members for review**
+2. **Create a feature branch:**
 
-Once merged, your changes will be available for testing in the `dev` branch.
+   ```bash
+   # For frontend
+   git checkout -b frontend-new-ui
+
+   # For backend
+   git checkout -b backend-add-api
+   ```
+
+3. **Work on your feature.**
+
+4. **Commit and push:**
+
+   ```bash
+   git add .
+   git commit -m "Add delete item button UI"
+   git push origin <branch-name>
+   ```
+
+5. **Open a Pull Request (PR) → `dev`**
+
+   * Review with team
+   * Merge after approval
 
 ---
 
 ## 📌 3️⃣ Development Guidelines
-### 🔹 Backend Development
-- Follow **Flask MVC** pattern.
-- Store database models in `models.py`.
-- Define routes properly in `routes.py`.
-- Use environment variables for **DB credentials & secrets**.
 
-### 🔹 Frontend Development
-- Modify **`/backend/templates/*.html`** files for UI.
-- Use **HTMX** for dynamic updates without JavaScript.
-- Refresh the **browser** after changes.
+### 🔹 Backend
 
-Example **HTMX button for deleting an item**:
+* Use Flask MVC pattern
+* Database logic → `models.py`
+* Routes → `routes.py`
+* Secrets and DB config → `.env`
+
+### 🔹 Frontend
+
+* Edit templates in `/templates/`
+* Use [HTMX](https://htmx.org) for live updates without full reloads
+
+Example delete button with HTMX:
+
 ```html
 <button
     hx-delete="/delete-item/{{ item.id }}"
@@ -134,11 +152,22 @@ Example **HTMX button for deleting an item**:
 ---
 
 ## ✅ 4️⃣ Summary
-✔ **Clone the repo & install dependencies**  
-✔ **Run Flask backend** to test UI changes  
-✔ **Run frontend separately if applicable**  
-✔ **Follow Git workflow for changes**  
-✔ **Push changes & create a PR for review**  
 
-Once approved, your changes will be **merged into `dev`** and tested. 🚀
+✔ Clone the repo
+✔ Setup backend and virtual environment
+✔ Configure `.env` file
+✔ Run Flask server
+✔ Follow Git flow for development
+✔ Submit PRs for team review
 
+---
+
+## 📃 License
+
+[MIT License](LICENSE) – free to use and modify.
+
+---
+
+## 👥 Authors & Contributors
+
+Developed by [@yarovlas](https://github.com/yarovlas) and contributors.
